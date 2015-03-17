@@ -9,21 +9,21 @@
  </head>
  <body ng-app="App">
   <div class="location-bar"></div>
-
-  <div class="container">
+  
+  <div class="container" ng-controller="MainController">
    <div class="page-header">
     <h1>TODO</h1>
    </div>
-
-   <form class="input-group input-group-lg">
+   
+   <form class="input-group input-group-lg" ng-submit="addTodo()">
     <input type="text" required placeholder="新しい要件を入力" class="form-control input-lg">
     <span class="input-group-btn">
      <button type="submit" class="btn btn-default">追加</button>
     </span>
    </form>
-
+   
    <hr>
-
+   
    <div class="btn-toolbar">
     <div class="btn-group">
      <button class="btn btn-success">全て完了／未了</button>
@@ -31,7 +31,7 @@
     <div class="btn-group">
      <button class="btn btn-default active">
       全部
-      <span class="badge">3</span>
+      <span class="badge">{{ todos.length }}</span>
      </button>
      <button class="btn btn-default">
       未了
@@ -48,19 +48,20 @@
    </div>
    
    <hr>
-
+   
    <ul class="list-unstyled">
-    <li class="todo-item">
+    <li class="todo-item" ng-repeat="todo in todos">
      <form class="input-group input-group-lg">
       <label class="input-group-addon">
        <input type="checkbox">
       </label>
-      <p class="form-control input-lg todo-title">未了のTODO</p>
+      <p class="form-control input-lg todo-title">{{ todo.title }}</p>
       <span class="input-group-btn del-btn">
        <button type="reset" class="btn btn-danger">削除</button>
       </span>
      </form>
     </li>
+    <!-- 不必要なモックはコメントアウト
     <li class="todo-item done">
      <form class="input-group input-group-lg">
       <label class="input-group-addon">
@@ -80,10 +81,12 @@
       <input type="text" required class="form-control input-lg" value="編集中のTODO">
      </form>
     </li>
+    -->
    </ul>
   </div>
 
  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.3/angular.min.js"></script>
+ <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.3/angular-route.min.js"></script>
  <script src="app.js"></script>
  </body>
 </html>
