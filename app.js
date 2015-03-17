@@ -30,4 +30,28 @@ angular.module('App', ['ngRoute']).controller('MainController', ['$scope', '$fil
   $scope.doneCount = where(todos, $scope.filter.done).length;
   $scope.remainingCount = length - $scope.doneCount;
  }, true);
+
+ var originalTitle;
+ $scope.editing = null;
+
+ $scope.editTodo = function (todo) {
+  originalTitle = todo.title;
+  $scope.editing = todo;
+ };
+
+ $scope.doneEdit = function (todoForm) {
+  if (todoForm.$invalid) {
+   $scope.editing.title = originalTitle;
+  }
+  $scope.editing = originalTitle = null;
+ };
+}])
+.directive('mySelect', [function () {
+ return function (scope, $el, attrs) {
+  scope.$watch(attrs.mySelect, function (val) {
+   if (val) {
+    $el[0].select();
+   }
+  });
+ };
 }]);
