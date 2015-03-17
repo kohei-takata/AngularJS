@@ -45,6 +45,24 @@ angular.module('App', ['ngRoute']).controller('MainController', ['$scope', '$fil
   }
   $scope.editing = originalTitle = null;
  };
+
+ $scope.checkAll = function () {
+  var state = !!$scope.remainingCount;
+
+  angular.forEach($scope.todos, function (todo) {
+   todo.done = state;
+  });
+ };
+
+ $scope.removeDoneTodo = function () {
+  $scope.todos = where($scope.todos, $scope.filter.remaining);
+ };
+
+ $scope.removeTodo = function (currentTodo) {
+  $scope.todos = where($scope.todos, function (todo) {
+   return currentTodo !== todo;
+  });
+ };
 }])
 .directive('mySelect', [function () {
  return function (scope, $el, attrs) {
